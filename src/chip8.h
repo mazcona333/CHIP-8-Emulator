@@ -12,6 +12,7 @@ class Chip8
 public:
     Chip8();
     bool LoadROM(char const *filename);
+    void Cycle();
 
 private:
     uint8_t registers[16];
@@ -28,6 +29,11 @@ private:
 
     std::default_random_engine randGen;
     std::uniform_int_distribution<uint16_t> randByte;
+
+    void Table0();
+    void Table8();
+    void TableE();
+    void TableF();
 
     // Do nothing
     void OP_NULL();
@@ -133,6 +139,14 @@ private:
 
     // LD Vx, [I]
     void OP_Fx65(); // Read registers V0 through Vx from memory starting at location I.
+
+	typedef void (Chip8::*Chip8Func)();
+    Chip8Func table[0xF + 1];
+	Chip8Func table0[0xE + 1];
+	Chip8Func table8[0xE + 1];
+	Chip8Func tableE[0xE + 1];
+	Chip8Func tableF[0x65 + 1];
+
 };
 
 #endif // CHIP8_H

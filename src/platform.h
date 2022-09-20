@@ -2,7 +2,10 @@
 #define PLATFORM_H
 
 #include <cstdint>
-#include <SDL.h>
+
+class SDL_Window;
+class SDL_Renderer;
+class SDL_Texture;
 
 class Platform
 {
